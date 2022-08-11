@@ -21,3 +21,5 @@ SUIT_VALS = {
     3: "Hearts",
     4: "Spades"
 }
+
+DECK_SIZE = 54

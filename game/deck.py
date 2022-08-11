@@ -44,6 +44,9 @@ class Deck(List[Card]):
             else:
                 raise DeckException("Decks can only contain Card objects!")
 
+    def __str__(self):
+        return "Deck with {} cards.".format(len(self))
+
     def deal_one(self) -> Card:
         """
         Method that deals (spits out) the first card from the deck.
