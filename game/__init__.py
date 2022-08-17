@@ -22,4 +22,4 @@ SUIT_VALS = {
     4: "Spades"
 }
 
-DECK_SIZE = 54
+DECK_SIZE = int(54)

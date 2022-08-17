@@ -1,13 +1,13 @@
 from tabnanny import check
 from colorama import Fore, Back, Style
 import socket
-from socket import socket as _socket, _RetAddress
+from socket import socket as _socket
 import threading
 
 from . import check_ip, DISCONNECT_MESSAGE
 
-HEADER = 64
-PORT = 5050
+HEADER = int(64)
+PORT = int(5050)
 SERVER = check_ip()
 ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
@@ -16,7 +16,7 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
 
-def handle_client(conn: _socket, addr: _RetAddress):
+def handle_client(conn: _socket, addr):
     print(Fore.GREEN + "[SERVER]" + Fore.CYAN +
           f" {addr}" + Fore.RESET, "connected.")
 
@@ -42,7 +42,7 @@ def handle_client(conn: _socket, addr: _RetAddress):
 def start():
     server.listen()
     print(Fore.GREEN + "[SERVER]" + Fore.RESET,
-          "Listening on {}".format(SERVER))
+          "Listening on {}:{}.".format(SERVER, PORT))
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))

@@ -1,15 +1,19 @@
 import socket
 
 from . import check_ip, DISCONNECT_MESSAGE
+from ..exceptions.client import ClientException
 
-HEADER = 64
-PORT = 5050
-FORMAT = 'utf-8'
+HEADER = int(64)
+PORT = int(5050)
+FORMAT = str('utf-8')
 SERVER = check_ip()
 ADDR = (SERVER, PORT)
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADDR)
+try:
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(ADDR)
+except Exception as err:
+    raise ClientException("Could not connect to {}".format(SERVER)) from err
 
 
 def send(msg: str):

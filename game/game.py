@@ -19,11 +19,17 @@ class Game(object):
                 break
 
     @property
-    def deck(self):
+    def deck(self) -> Deck:
+        """
+        Returns the main deck of the game.
+        """
         return self._deck
 
     @deck.setter
     def deck(self, value: Deck):
+        """
+        Initializes main Deck of the game.
+        """
         if not isinstance(value, Deck):
             raise GameException(
                 "Deck property must be an instance of the 'Deck' class!")
