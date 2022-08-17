@@ -5,10 +5,12 @@ from ..exceptions.cards import DeckException
 from .card import Card
 from . import CARD_VALS, SUIT_VALS
 
+
 class Deck(List[Card]):
     """
     Class that handles a deck of Cards.
     """
+
     def __init__(self, jokers: bool = True, shuffle_deck: bool = True, num_of_decks: int = 1):
         """
         Method that instantiates a deck with 54 cards (regular 52 + 2 Jokers).
@@ -28,15 +30,17 @@ class Deck(List[Card]):
         if jokers:
             if len(self) != 54:
                 self.clear()
-                raise DeckException("Incorrect amount of cards in deck!")
+                raise DeckException(
+                    "Incorrect amount of cards in deck! (not 54)")
         else:
             if len(self) != 52:
                 self.clear()
-                raise DeckException("Incorrect amount of cards in deck!")
+                raise DeckException(
+                    "Incorrect amount of cards in deck! (not 52)")
 
         if shuffle_deck:
             random.shuffle(self)
-            
+
     def __iter__(self) -> Iterator[Card]:
         for card in super().__iter__():
             if isinstance(card, Card):
@@ -66,6 +70,13 @@ class Deck(List[Card]):
                 card_list.append(self.pop(0))
 
         else:
-            raise DeckException("Not enough cards to deal! Trying to deal {} cards when there are only {} left.".format(num, len(self)))
+            raise DeckException(
+                "Not enough cards to deal! Trying to deal {} cards when there are only {} left.".format(num, len(self)))
 
         return tuple(card_list)
+
+    def count(self) -> int:
+        """
+        Returns the amount of remaining cards in deck - len(self)
+        """
+        return len(self)

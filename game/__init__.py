@@ -16,7 +16,7 @@ CARD_VALS = {
 }
 
 SUIT_VALS = {
-    1: "Cloves",
+    1: "Clubs",
     2: "Diamonds",
     3: "Hearts",
     4: "Spades"
