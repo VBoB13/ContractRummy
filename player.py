@@ -2,8 +2,8 @@ from colorama import Fore
 from typing import List, Tuple
 
 from user import User
-from .game.card import Card
-from .exceptions.players import PlayerException
+from game.card import Card
+from exceptions.players import PlayerException
 
 
 class Player(User):

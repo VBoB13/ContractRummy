@@ -1,6 +1,6 @@
 from colorama import Fore
 
-from ..exceptions.cards import CardException
+from exceptions.cards import CardException
 from . import CARD_VALS, SUIT_VALS
 
 
@@ -11,8 +11,7 @@ class Card():
 
     def __init__(self, value: int, suit: int):
         self.value = value
-        if self.value != 14:
-            self.suit = suit
+        self.suit = suit
 
     def __str__(self):
         return "{} of {}".format(CARD_VALS[self._value], SUIT_VALS[self._suit])

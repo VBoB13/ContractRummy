@@ -1,8 +1,11 @@
 import socket
 from colorama import Fore, Back, Style
+import pygame
 
 from player import Player
+from game.deck import Deck
 from . import check_ip, DISCONNECT_MESSAGE
+from game import WINDOW_SIZE
 from exceptions.client import ClientException
 
 HEADER = int(64)
@@ -17,6 +20,10 @@ try:
 except Exception as err:
     raise ClientException("Could not connect to {}".format(SERVER)) from err
 
+window = pygame.display.set_mode(WINDOW_SIZE)
+pygame.display.set_caption("Contract Rummy")
+clientNumber = 0
+
 
 def send(msg: str):
     message = msg.encode(FORMAT)
@@ -28,15 +35,35 @@ def send(msg: str):
     print(client.recv(2048).decode(FORMAT))
 
 
-if __name__ == "__main__":
-    print(Fore.LIGHTYELLOW_EX + "[CLIENT] " +
-          Fore.RESET + "Welcome to Contract Rummy, player!")
-    email = input(
-        "What's your email?\nIf you don't want to provide it, just press [ENTER]\nEmail: ")
-    nickname = input("What nickname would you like to use?\nNickname: ")
-    player = Player(email, nickname)
+def redrawWindow(deck: Deck):
+    window.fill((255, 255, 255))
+    deck.draw(window)
+    pygame.display.update()
 
-    send("Hello bitches!")
-    send("Hi cool people!")
-    send("And hi Richard! (:")
-    send(DISCONNECT_MESSAGE)
+
+def main():
+    run = True
+    deck = Deck()
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+
+        deck.move()
+        redrawWindow(deck)
+
+
+if __name__ == "__main__":
+    main()
+    # print(Fore.LIGHTYELLOW_EX + "[CLIENT] " +
+    #       Fore.RESET + "Welcome to Contract Rummy, player!")
+    # email = input(
+    #     "What's your email?\nIf you don't want to provide it, just press [ENTER]\nEmail: ")
+    # nickname = input("What nickname would you like to use?\nNickname: ")
+    # player = Player(email, nickname)
+
+    # send("Hello bitches!")
+    # send("Hi cool people!")
+    # send("And hi Richard! (:")
+    # send(DISCONNECT_MESSAGE)
