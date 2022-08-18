@@ -1,4 +1,3 @@
-from tabnanny import check
 from colorama import Fore, Back, Style
 import socket
 from socket import socket as _socket
@@ -31,10 +30,10 @@ def handle_client(conn: _socket, addr):
             if msg == DISCONNECT_MESSAGE:
                 connected = False
 
-            print(Fore.LIGHTYELLOW_EX + f"[{addr}]" + Fore.RESET, f"{msg}")
-            full_msg = Fore.LIGHTGREEN_EX + \
-                "[SERVER - INFO]" + Fore.RESET + " Message received."
-            conn.send(full_msg.encode(FORMAT))
+            client_msg = Fore.LIGHTYELLOW_EX + \
+                "[{}]".format(addr) + Fore.RESET + "{}".format(msg)
+            print(client_msg)
+            conn.send(client_msg.encode(FORMAT))
 
     conn.close()
 

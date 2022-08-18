@@ -1,7 +1,7 @@
 from . import DECK_SIZE
 from .deck import Deck
-from ..player import Player
-from ..exceptions.game import GameException
+from player import Player
+from exceptions.game import GameException
 
 
 class Game(object):
