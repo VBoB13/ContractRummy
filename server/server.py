@@ -3,13 +3,9 @@ import socket
 from socket import socket as _socket
 import threading
 
-from . import check_ip, DISCONNECT_MESSAGE
+from . import check_ip, DISCONNECT_MESSAGE, HEADER, SERVER, PORT, FORMAT
 
-HEADER = int(64)
-PORT = int(5050)
-SERVER = check_ip()
 ADDR = (SERVER, PORT)
-FORMAT = "utf-8"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
@@ -19,21 +15,22 @@ def handle_client(conn: _socket, addr):
     print(Fore.GREEN + "[SERVER]" + Fore.CYAN +
           f" {addr}" + Fore.RESET, "connected.")
 
+    conn.send(str.encode("Connected"))
+
     connected = True
 
     while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
+        data = conn.recv(HEADER).decode(FORMAT)
 
-        if msg_length:
-            msg_length = int(msg_length)
-            msg = conn.recv(msg_length).decode(FORMAT)
-            if msg == DISCONNECT_MESSAGE:
-                connected = False
-
-            client_msg = Fore.LIGHTYELLOW_EX + \
-                "[{}]".format(addr) + Fore.RESET + "{}".format(msg)
+        if data == DISCONNECT_MESSAGE:
+            connected = False
+            print(Fore.LIGHTGREEN_EX + "[SERVER]" +
+                  Fore.CYAN, "{}".format(addr), "disconnected." + Fore.RESET)
+        if data:
+            client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
+                "{}".format(addr) + Fore.RESET + " {}".format(data)
             print(client_msg)
-            conn.send(client_msg.encode(FORMAT))
+            conn.send(str.encode(client_msg))
 
     conn.close()
 

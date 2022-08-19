@@ -4,6 +4,9 @@ from sys import platform
 from colorama import Fore
 
 DISCONNECT_MESSAGE = "!DISCONNECT"
+HEADER = int(2048)
+PORT = int(5050)
+FORMAT = "utf-8"
 
 
 def check_ip():
@@ -22,3 +25,6 @@ def check_ip():
           Fore.RED + address.decode('utf-8').strip('\n') + Fore.RESET)
 
     return address.decode('utf-8').strip('\n')
+
+
+SERVER = check_ip()

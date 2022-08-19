@@ -4,14 +4,11 @@ import pygame
 
 from player import Player
 from game.deck import Deck
-from . import check_ip, DISCONNECT_MESSAGE
+from . import DISCONNECT_MESSAGE, HEADER, SERVER, PORT
 from game import WINDOW_SIZE
 from exceptions.client import ClientException
 
-HEADER = int(64)
-PORT = int(5050)
 FORMAT = str('utf-8')
-SERVER = check_ip()
 ADDR = (SERVER, PORT)
 
 try:
@@ -48,6 +45,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                send(DISCONNECT_MESSAGE)
                 pygame.quit()
 
         deck.move()
