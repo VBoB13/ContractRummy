@@ -27,8 +27,3 @@ class Network(object):
             return self.client.recv(2048).decode(FORMAT)
         except socket.error as e:
             print(e)
-
-
-n = Network()
-print(n.send("Hello!"))
-print(n.send("Working!"))

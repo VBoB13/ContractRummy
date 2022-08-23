@@ -24,6 +24,6 @@ SUIT_VALS = {
 
 DECK_SIZE = int(54)
 
-WINDOW_SIZE = (500, 500)
+WINDOW_SIZE = (int(500), int(500))
 
 MOVE_SPEED = 3

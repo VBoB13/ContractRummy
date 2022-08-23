@@ -15,6 +15,8 @@ class Deck(List[Card]):
     def __init__(self, jokers: bool = True, shuffle_deck: bool = True, num_of_decks: int = 1):
         """
         Method that instantiates a deck with 54 cards (regular 52 + 2 Jokers).
+        :params:
+
         """
         # Add cards to deck to initialize
         for deck_num in range(num_of_decks):
@@ -58,7 +60,7 @@ class Deck(List[Card]):
         return "Deck with {} cards.".format(len(self))
 
     @property
-    def x(self):
+    def x(self) -> int:
         return self._x
 
     @x.setter
@@ -73,7 +75,7 @@ class Deck(List[Card]):
         del self._x
 
     @property
-    def y(self):
+    def y(self) -> int:
         return self._y
 
     @y.setter
@@ -88,7 +90,7 @@ class Deck(List[Card]):
         del self._y
 
     @property
-    def width(self):
+    def width(self) -> int:
         return self._width
 
     @width.setter
@@ -100,7 +102,7 @@ class Deck(List[Card]):
         del self._width
 
     @property
-    def height(self):
+    def height(self) -> int:
         return self._height
 
     @height.setter
@@ -112,11 +114,11 @@ class Deck(List[Card]):
         del self._height
 
     @property
-    def rect(self):
+    def rect(self) -> Tuple[int, int, int, int]:
         return (self.x, self.y, self.width, self.height)
 
     @property
-    def color(self):
+    def color(self) -> Tuple[int, int, int]:
         return (255, 0, 0)
 
     def draw(self, window):
@@ -142,8 +144,7 @@ class Deck(List[Card]):
         Method that deals (spits out) the first card from the deck.
         """
         if len(self) > 0:
-            card = self.pop(0)
-            return card
+            return self.pop(0)
         raise DeckException("Can't deal any card when deck is empty!")
 
     def deal_multiple(self, num: int) -> Tuple[Card]:

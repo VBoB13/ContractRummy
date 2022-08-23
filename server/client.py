@@ -2,8 +2,10 @@ import socket
 from colorama import Fore, Back, Style
 import pygame
 
+from network import Network
 from player import Player
 from game.deck import Deck
+from game.card import Card
 from . import DISCONNECT_MESSAGE, HEADER, SERVER, PORT
 from game import WINDOW_SIZE
 from exceptions.client import ClientException
@@ -32,15 +34,17 @@ def send(msg: str):
     print(client.recv(2048).decode(FORMAT))
 
 
-def redrawWindow(deck: Deck):
+def redrawWindow(card: Card):
     window.fill((255, 255, 255))
-    deck.draw(window)
+    card.draw(window)
     pygame.display.update()
 
 
 def main():
     run = True
-    deck = Deck()
+    n = Network()
+    pos = n.pos  # TWT Online Game Tutorial Pt.4
+    card = Card()
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,8 +52,8 @@ def main():
                 send(DISCONNECT_MESSAGE)
                 pygame.quit()
 
-        deck.move()
-        redrawWindow(deck)
+        card.move()
+        redrawWindow(card)
 
 
 if __name__ == "__main__":
