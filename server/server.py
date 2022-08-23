@@ -10,6 +10,10 @@ ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
+start_pos = [(250, 0), (250, 500)]
+
+currentPlayer = int(0)
+
 
 def handle_client(conn: _socket, addr):
     print(Fore.GREEN + "[SERVER]" + Fore.CYAN +
@@ -26,6 +30,7 @@ def handle_client(conn: _socket, addr):
             connected = False
             print(Fore.LIGHTGREEN_EX + "[SERVER]" +
                   Fore.CYAN, "{}".format(addr), "disconnected." + Fore.RESET)
+            currentPlayer -= int(1)
         if data:
             client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
                 "{}".format(addr) + Fore.RESET + " {}".format(data)
@@ -43,6 +48,7 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
+        currentPlayer += int(1)
         print(Fore.GREEN + "[SERVER]" + Fore.RESET, "Active connections:" +
               Fore.CYAN + " {}".format(threading.activeCount() - 1) + Fore.RESET)
 

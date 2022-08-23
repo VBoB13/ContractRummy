@@ -1,5 +1,6 @@
 import socket
 from colorama import Fore, Back, Style
+from typing import Tuple
 import pygame
 
 from network import Network
@@ -34,9 +35,19 @@ def send(msg: str):
     print(client.recv(2048).decode(FORMAT))
 
 
-def redrawWindow(card: Card):
+def read_pos(string: str) -> Tuple[int, int]:
+    pos_list = string.split(",")
+    return int(pos_list[0]), int(pos_list[1])
+
+
+def make_pos(tup: tuple) -> str:
+    return str(tup[0]) + "," + str(tup[1])
+
+
+def redrawWindow(card: Card, card2: Card):
     window.fill((255, 255, 255))
     card.draw(window)
+    card2.draw(window)
     pygame.display.update()
 
 
@@ -44,8 +55,17 @@ def main():
     run = True
     n = Network()
     pos = n.pos  # TWT Online Game Tutorial Pt.4
-    card = Card()
+    card = Card(1, 4, x_pos=pos[0], y_pos=pos[1])
+    card2 = Card(1, 3, 0, 0)
+    clock = pygame.time.Clock()
+
     while run:
+        clock.tick(60)
+
+        card2_pos = read_pos(n.send(make_pos((card2.x, card2.y))))
+        card2.x = card2_pos[0]
+        card2.y = card2_pos[1]
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -53,7 +73,7 @@ def main():
                 pygame.quit()
 
         card.move()
-        redrawWindow(card)
+        redrawWindow(card, card2)
 
 
 if __name__ == "__main__":

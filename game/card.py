@@ -137,6 +137,10 @@ class Card(object):
     def rect(self) -> Tuple[int, int, int, int]:
         return (self.x, self.y, self.width, self.height)
 
+    @property
+    def color(self) -> Tuple[int, int, int]:
+        return (int(255), int(0), int(0))
+
     def default(self) -> None:
         """
         Restore the Card's default width, height, x and y values.
