@@ -2,6 +2,7 @@ import subprocess
 import socket
 from sys import platform
 from colorama import Fore
+from typing import Tuple
 
 DISCONNECT_MESSAGE = "!DISCONNECT"
 HEADER = int(2048)
@@ -28,3 +29,12 @@ def check_ip():
 
 
 SERVER = check_ip()
+
+
+def read_pos(string: str) -> Tuple[int, int]:
+    pos_list = string.split(",")
+    return int(pos_list[0]), int(pos_list[1])
+
+
+def make_pos(tup: tuple) -> str:
+    return str(tup[0]) + "," + str(tup[1])

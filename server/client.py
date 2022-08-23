@@ -3,11 +3,9 @@ from colorama import Fore, Back, Style
 from typing import Tuple
 import pygame
 
-from network import Network
-from player import Player
-from game.deck import Deck
+from server.network import Network
 from game.card import Card
-from . import DISCONNECT_MESSAGE, HEADER, SERVER, PORT
+from . import DISCONNECT_MESSAGE, HEADER, SERVER, PORT, make_pos, read_pos
 from game import WINDOW_SIZE
 from exceptions.client import ClientException
 
@@ -33,15 +31,6 @@ def send(msg: str):
     client.send(send_length)
     client.send(message)
     print(client.recv(2048).decode(FORMAT))
-
-
-def read_pos(string: str) -> Tuple[int, int]:
-    pos_list = string.split(",")
-    return int(pos_list[0]), int(pos_list[1])
-
-
-def make_pos(tup: tuple) -> str:
-    return str(tup[0]) + "," + str(tup[1])
 
 
 def redrawWindow(card: Card, card2: Card):
