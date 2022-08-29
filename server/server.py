@@ -12,10 +12,11 @@ server.bind(ADDR)
 
 pos = [(250, 0), (250, 500)]
 
-currentPlayer = int(0)
+CURRENT_PLAYER = int(0)
 
 
 def handle_client(conn: _socket, addr, player: int):
+    global CURRENT_PLAYER
     print(Fore.GREEN + "[SERVER]" + Fore.CYAN +
           f" {addr}" + Fore.RESET, "connected.")
 
@@ -25,14 +26,17 @@ def handle_client(conn: _socket, addr, player: int):
 
     while connected:
         reply = ""
-        data = read_pos(conn.recv(HEADER).decode(FORMAT))
-        pos[player] = data
+        raw_data = conn.recv(HEADER).decode(FORMAT)
+        if raw_data:
+            print("Raw data:", raw_data)
+            data = read_pos(raw_data)
+            pos[player] = data
 
         if data == DISCONNECT_MESSAGE:
             connected = False
             print(Fore.LIGHTGREEN_EX + "[SERVER]" +
                   Fore.CYAN, "{}".format(addr), "disconnected." + Fore.RESET)
-            currentPlayer -= int(1)
+            CURRENT_PLAYER -= int(1)
         if data:
             if player == 1:
                 reply = pos[0]
@@ -47,15 +51,16 @@ def handle_client(conn: _socket, addr, player: int):
 
 
 def start():
+    global CURRENT_PLAYER
     server.listen()
     print(Fore.GREEN + "[SERVER]" + Fore.RESET,
           "Listening on {}:{}.".format(SERVER, PORT))
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(
-            target=handle_client, args=(conn, addr, currentPlayer))
+            target=handle_client, args=(conn, addr, CURRENT_PLAYER))
         thread.start()
-        currentPlayer += int(1)
+        CURRENT_PLAYER += int(1)
         print(Fore.GREEN + "[SERVER]" + Fore.RESET, "Active connections:" +
               Fore.CYAN + " {}".format(threading.activeCount() - 1) + Fore.RESET)
 

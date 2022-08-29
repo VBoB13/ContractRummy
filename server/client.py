@@ -44,7 +44,7 @@ def main():
     run = True
     n = Network()
     pos = n.pos  # TWT Online Game Tutorial Pt.4
-    card = Card(1, 4, x_pos=pos[0], y_pos=pos[1])
+    card = Card(1, 4, x_pos=int(pos[0]), y_pos=int(pos[1]))
     card2 = Card(1, 3, 0, 0)
     clock = pygame.time.Clock()
 

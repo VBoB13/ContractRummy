@@ -82,7 +82,7 @@ class Card(object):
         if value < 0:
             raise CardException(
                 "Can only set coordinates to POSITIVE values, not {}.".format(value))
-        self._x = value
+        self._x = int(value)
 
     @x.deleter
     def x(self):
@@ -97,7 +97,7 @@ class Card(object):
         if value < 0:
             raise CardException(
                 "Can only set coordinates to POSITIVE values, not {}.".format(value))
-        self._y = value
+        self._y = int(value)
 
     @y.deleter
     def y(self):
@@ -112,7 +112,7 @@ class Card(object):
         if value < 0:
             raise CardException(
                 "Can only set physical properties to POSITIVE values, not {}.".format(value))
-        self._width = value
+        self._width = int(value)
 
     @width.deleter
     def width(self):
@@ -127,7 +127,7 @@ class Card(object):
         if value < 0:
             raise CardException(
                 "Can only set physical properties to POSITIVE values, not {}.".format(value))
-        self._height = value
+        self._height = int(value)
 
     @height.deleter
     def height(self):

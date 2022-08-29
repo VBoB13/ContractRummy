@@ -1,4 +1,7 @@
 import socket
+
+from exceptions.network import NetworkError
+from traceback import print_tb
 from . import SERVER, PORT, HEADER, FORMAT
 
 
@@ -12,14 +15,17 @@ class Network(object):
 
     @property
     def pos(self):
+        print(self._pos)
         return self._pos
 
     def connect(self):
         try:
             self.client.connect(self.addr)
             return self.client.recv(2048).decode(FORMAT)
-        except:
-            pass
+        except Exception as err:
+            print(err)
+            print_tb(err.__traceback__)
+            raise NetworkError("Could not connect to {}".format(self.addr))
 
     def send(self, data: str):
         try:
@@ -27,3 +33,4 @@ class Network(object):
             return self.client.recv(2048).decode(FORMAT)
         except socket.error as e:
             print(e)
+            print_tb(e.__traceback__)
