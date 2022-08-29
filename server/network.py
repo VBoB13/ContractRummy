@@ -15,7 +15,6 @@ class Network(object):
 
     @property
     def pos(self):
-        print(self._pos)
         return self._pos
 
     def connect(self):

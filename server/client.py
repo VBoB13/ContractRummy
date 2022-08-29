@@ -12,18 +12,17 @@ from exceptions.client import ClientException
 FORMAT = str('utf-8')
 ADDR = (SERVER, PORT)
 
-try:
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(ADDR)
-except Exception as err:
-    raise ClientException("Could not connect to {}".format(SERVER)) from err
+# try:
+#     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     client.connect(ADDR)
+# except Exception as err:
+#     raise ClientException("Could not connect to {}".format(SERVER)) from err
 
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Contract Rummy")
-clientNumber = 0
 
 
-def send(msg: str):
+def send(msg: str, client: Network):
     message = msg.encode(FORMAT)
     msg_length = len(message)
     send_length = str(msg_length).encode(FORMAT)
@@ -34,6 +33,7 @@ def send(msg: str):
 
 
 def redrawWindow(card: Card, card2: Card):
+    global window
     window.fill((255, 255, 255))
     card.draw(window)
     card2.draw(window)
@@ -43,7 +43,7 @@ def redrawWindow(card: Card, card2: Card):
 def main():
     run = True
     n = Network()
-    pos = n.pos  # TWT Online Game Tutorial Pt.4
+    pos = n.pos
     card = Card(1, 4, x_pos=int(pos[0]), y_pos=int(pos[1]))
     card2 = Card(1, 3, 0, 0)
     clock = pygame.time.Clock()
@@ -58,7 +58,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-                send(DISCONNECT_MESSAGE)
+                send(DISCONNECT_MESSAGE, n)
                 pygame.quit()
 
         card.move()

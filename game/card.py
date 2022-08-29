@@ -80,8 +80,7 @@ class Card(object):
     @x.setter
     def x(self, value: int):
         if value < 0:
-            raise CardException(
-                "Can only set coordinates to POSITIVE values, not {}.".format(value))
+            value = int(0)
         self._x = int(value)
 
     @x.deleter
@@ -95,8 +94,7 @@ class Card(object):
     @y.setter
     def y(self, value: int):
         if value < 0:
-            raise CardException(
-                "Can only set coordinates to POSITIVE values, not {}.".format(value))
+            value = int(0)
         self._y = int(value)
 
     @y.deleter

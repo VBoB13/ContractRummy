@@ -28,7 +28,6 @@ def handle_client(conn: _socket, addr, player: int):
         reply = ""
         raw_data = conn.recv(HEADER).decode(FORMAT)
         if raw_data:
-            print("Raw data:", raw_data)
             data = read_pos(raw_data)
             pos[player] = data
 
@@ -42,9 +41,9 @@ def handle_client(conn: _socket, addr, player: int):
                 reply = pos[0]
             else:
                 reply = pos[1]
-            client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
-                "{}".format(addr) + Fore.RESET + " {}".format(data)
-            print(client_msg)
+            # client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
+            #     "{}".format(addr) + Fore.RESET + " {}".format(data)
+            # print(client_msg)
             conn.send(str.encode(make_pos(reply)))
 
     conn.close()
@@ -61,6 +60,7 @@ def start():
             target=handle_client, args=(conn, addr, CURRENT_PLAYER))
         thread.start()
         CURRENT_PLAYER += int(1)
+        print(Fore.CYAN + "Player:" + Fore.RESET, CURRENT_PLAYER)
         print(Fore.GREEN + "[SERVER]" + Fore.RESET, "Active connections:" +
               Fore.CYAN + " {}".format(threading.activeCount() - 1) + Fore.RESET)
 
