@@ -20,7 +20,7 @@ class Network(object):
     def connect(self):
         try:
             self.client.connect(self.addr)
-            return self.client.recv(2048).decode(FORMAT)
+            return self.client.recv(HEADER).decode(FORMAT)
         except Exception as err:
             print(err)
             print_tb(err.__traceback__)
@@ -29,7 +29,7 @@ class Network(object):
     def send(self, data: str):
         try:
             self.client.send(str.encode(data))
-            return self.client.recv(2048).decode(FORMAT)
+            return self.client.recv(HEADER).decode(FORMAT)
         except socket.error as e:
             print(e)
             print_tb(e.__traceback__)

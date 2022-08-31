@@ -2,14 +2,14 @@ from colorama import Fore
 from typing import List, Tuple
 import random
 
-from user import User
+from game.user import User
 from game.card import Card
 from exceptions.players import PlayerException
 
 
 class Player(User):
-    def __init__(self, email: str, nickname: str):
-        super().__init__(email, nickname)
+    def __init__(self, nickname: str, email: str = ""):
+        super().__init__(nickname, email)
         self._hand = None
 
     def print(self):

@@ -10,7 +10,7 @@ ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
-pos = [(250, 0), (250, 500)]
+pos = [(200, 0), (400, 0), (200, 500), (400, 500)]
 
 CURRENT_PLAYER = int(0)
 
@@ -31,20 +31,17 @@ def handle_client(conn: _socket, addr, player: int):
             data = read_pos(raw_data)
             pos[player] = data
 
-        if data == DISCONNECT_MESSAGE:
-            connected = False
-            print(Fore.LIGHTGREEN_EX + "[SERVER]" +
-                  Fore.CYAN, "{}".format(addr), "disconnected." + Fore.RESET)
-            CURRENT_PLAYER -= int(1)
-        if data:
-            if player == 1:
-                reply = pos[0]
-            else:
-                reply = pos[1]
-            # client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
-            #     "{}".format(addr) + Fore.RESET + " {}".format(data)
-            # print(client_msg)
-            conn.send(str.encode(make_pos(reply)))
+            if data == DISCONNECT_MESSAGE:
+                connected = False
+                print(Fore.LIGHTGREEN_EX + "[SERVER]" +
+                      Fore.CYAN, "{}".format(addr), "disconnected." + Fore.RESET)
+                CURRENT_PLAYER -= int(1)
+            if data:
+                reply = pos[player]
+                # client_msg = Fore.LIGHTGREEN_EX + "[SERVER] " + Fore.LIGHTYELLOW_EX + \
+                #     "{}".format(addr) + Fore.RESET + " {}".format(data)
+                # print(client_msg)
+                conn.send(str.encode(make_pos(reply)))
 
     conn.close()
 

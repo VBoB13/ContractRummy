@@ -54,6 +54,7 @@
     <element xsi:type="archimate:ApplicationFunction" name="UUID -> DB" id="id-a619c17b17774625af2b030a05aee245"/>
     <element xsi:type="archimate:ApplicationFunction" name="Store pickled game data" id="id-4097d78b923347faacd8df0b6d3e187d"/>
     <element xsi:type="archimate:ApplicationFunction" name="Return pickled game data" id="id-e64d0bee05b14ff986cb66f4561d7685"/>
+    <element xsi:type="archimate:ApplicationProcess" name="Start server" id="id-5c3d4ffc7fa043e980b5fe162f758604"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-ac3cc229ccb449128825b860950a8b37" type="technology">
     <element xsi:type="archimate:Device" name="Computer / Phone" id="id-b6f340ff048d47c8869a1921564eabb7"/>
@@ -399,7 +400,7 @@
         <bounds x="205" y="408" width="1068" height="276"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-6a6185e2df5a4287a0c6b721928b378d" source="id-afa5892829cb48cb82fde974889269ce" target="id-c5435b814ee24811ada1d9800bfe6b53" archimateRelationship="id-f55b669b9cd14674b2c4e7bc02706e92"/>
         <child xsi:type="archimate:DiagramObject" id="id-c5435b814ee24811ada1d9800bfe6b53" targetConnections="id-6a6185e2df5a4287a0c6b721928b378d" archimateElement="id-022a80705a0540e78a59dfae1f59250e">
-          <bounds x="57" y="26" width="472" height="167"/>
+          <bounds x="24" y="24" width="517" height="167"/>
           <child xsi:type="archimate:DiagramObject" id="id-ded351c2418e48b7863a6892c02d35ab" textAlignment="1" archimateElement="id-6a02a706580d4d91a6be1df6950f36dd">
             <bounds x="12" y="24" width="265" height="133"/>
             <sourceConnection xsi:type="archimate:Connection" id="id-8a6f02c9c753470c81e39fb5af29c1f6" source="id-ded351c2418e48b7863a6892c02d35ab" target="id-9f9ebc84ba5545e3aa6d263a22d27b57" archimateRelationship="id-62bc88b19aa2409bb52d6e3d7ab69cbb"/>
@@ -418,6 +419,9 @@
             <child xsi:type="archimate:DiagramObject" id="id-855423562c9e4f5cbfc7bddffc884ee8" targetConnections="id-0f77b2589e7247829f621c72c943747e id-b061083dae42420fa8545c8f81b88f1f" archimateElement="id-e64d0bee05b14ff986cb66f4561d7685">
               <bounds x="7" y="72" width="120" height="55"/>
             </child>
+          </child>
+          <child xsi:type="archimate:DiagramObject" id="id-4b8531f733fb46b3a1c36f524124f942" archimateElement="id-5c3d4ffc7fa043e980b5fe162f758604">
+            <bounds x="288" y="24" width="217" height="133"/>
           </child>
         </child>
       </child>
